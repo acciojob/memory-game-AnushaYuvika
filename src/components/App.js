@@ -18,38 +18,15 @@ const App = () => {
         <div className="levels_container">
           <h1>Welcome!</h1>
           <h4>Select a difficulty to start the game</h4>
-          <div>
-            <label>
-              <input
-                type="radio"
-                name="difficulty"
-                id="easy"
-                value="easy"
-                onChange={(e) => setDifficulty(e.target.value)}
-              />{" "}
-              Easy
-            </label>
-            <label style={{ marginLeft: "10px" }}>
-              <input
-                type="radio"
-                name="difficulty"
-                value="normal"
-                id="normal"
-                onChange={(e) => setDifficulty(e.target.value)}
-              />{" "}
-              Normal
-            </label>
-            <label style={{ marginLeft: "10px" }}>
-              <input
-                type="radio"
-                name="difficulty"
-                value="hard"
-                id="hard"
-                onChange={(e) => setDifficulty(e.target.value)}
-              />{" "}
-              Hard
-            </label>
-          </div>
+          <input type="radio" name="difficulty" id="easy" value="easy" onChange={(e) => setDifficulty(e.target.value)} />
+          <label htmlFor="easy">Easy</label>
+
+          <input type="radio" name="difficulty" id="normal" value="normal" onChange={(e) => setDifficulty(e.target.value)} />
+          <label htmlFor="normal">Normal</label>
+
+          <input type="radio" name="difficulty" id="hard" value="hard" onChange={(e) => setDifficulty(e.target.value)} />
+          <label htmlFor="hard">Hard</label> <br/>
+
           <button style={{ marginTop: "20px" }} onClick={handleStart}>
             Start
           </button>
