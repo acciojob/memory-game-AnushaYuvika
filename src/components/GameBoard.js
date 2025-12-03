@@ -39,46 +39,86 @@ export default function GameBoard({ difficulty }) {
     setSecondTile(null);
   };
 
+  // const handleTileClick = (tile) => {
+  //   if (tile.isFlipped || tile.isMatched) return;
+
+  //   const newTiles = tiles.map((t) =>
+  //     t.id === tile.id ? { ...t, isFlipped: true } : t
+  //   );
+  //   setTiles(newTiles);
+
+  //   if (!firstTile) setFirstTile(tile);
+  //   else if (!secondTile) {
+  //     setSecondTile(tile);
+  //     setYoTries((prev) => prev + 1);
+
+  //     setTimeout(() => {
+  //       if (firstTile.value === tile.value) {
+  //         setTiles((prev) =>
+  //           prev.map((t) =>
+  //             t.value === tile.value ? { ...t, isMatched: true } : t
+  //           )
+  //         );
+  //       } else {
+  //         setTiles((prev) =>
+  //           prev.map((t) =>
+  //             t.id === firstTile.id || t.id === tile.id
+  //               ? { ...t, isFlipped: false }
+  //               : t
+  //           )
+  //         );
+  //       }
+  //       setFirstTile(null);
+  //       setSecondTile(null);
+  //     }, 800);
+  //   }
+  // };
+
   const handleTileClick = (tile) => {
-    if (tile.isFlipped || tile.isMatched) return;
+  if (tile.isFlipped || tile.isMatched) return;
 
-    const newTiles = tiles.map((t) =>
-      t.id === tile.id ? { ...t, isFlipped: true } : t
-    );
-    setTiles(newTiles);
+  const newTiles = tiles.map((t) =>
+    t.id === tile.id ? { ...t, isFlipped: true } : t
+  );
+  setTiles(newTiles);
 
-    if (!firstTile) setFirstTile(tile);
-    else if (!secondTile) {
-      setSecondTile(tile);
-      setYoTries((prev) => prev + 1);
+  if (!firstTile) {
+    setFirstTile(tile);
+  } else if (!secondTile) {
+    setSecondTile(tile);
+    setYoTries((prev) => prev + 1);
 
-      setTimeout(() => {
-        if (firstTile.value === tile.value) {
-          setTiles((prev) =>
-            prev.map((t) =>
-              t.value === tile.value ? { ...t, isMatched: true } : t
-            )
-          );
-        } else {
-          setTiles((prev) =>
-            prev.map((t) =>
-              t.id === firstTile.id || t.id === tile.id
-                ? { ...t, isFlipped: false }
-                : t
-            )
-          );
-        }
-        setFirstTile(null);
-        setSecondTile(null);
-      }, 800);
-    }
-  };
+    const prevFirst = firstTile; // capture the current first tile
+    const prevSecond = tile;     // the second tile clicked
+
+    setTimeout(() => {
+      if (prevFirst.value === prevSecond.value) {
+        setTiles((prev) =>
+          prev.map((t) =>
+            t.value === prevFirst.value ? { ...t, isMatched: true } : t
+          )
+        );
+      } else {
+        setTiles((prev) =>
+          prev.map((t) =>
+            t.id === prevFirst.id || t.id === prevSecond.id
+              ? { ...t, isFlipped: false }
+              : t
+          )
+        );
+      }
+      setFirstTile(null);
+      setSecondTile(null);
+    }, 800);
+  }
+};
 
   const allMatched = tiles.every((tile) => tile.isMatched);
 
   return (
     <div className="game_container">
       <h2>Difficulty: {difficulty}</h2>
+      <h4>Try to match all pairs!</h4>
       <h3>YoTries: {yoTries}</h3>
       <div
   className="cells_container"
