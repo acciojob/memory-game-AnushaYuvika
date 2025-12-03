@@ -18,14 +18,20 @@ const App = () => {
         <div className="levels_container">
           <h1>Welcome!</h1>
           <h4>Select a difficulty to start the game</h4>
-          <input type="radio" name="difficulty" id="easy" value="easy" onChange={(e) => setDifficulty(e.target.value)} />
-          <label htmlFor="easy">Easy</label>
+          <div>
+            <input type="radio" name="difficulty" id="easy" value="easy" onChange={(e) => setDifficulty(e.target.value)} />
+            <label htmlFor="easy">Easy</label>
+          </div>
 
-          <input type="radio" name="difficulty" id="normal" value="normal" onChange={(e) => setDifficulty(e.target.value)} />
-          <label htmlFor="normal">Normal</label>
+          <div>
+            <input type="radio" name="difficulty" id="normal" value="normal" onChange={(e) => setDifficulty(e.target.value)} />
+            <label htmlFor="normal">Normal</label>
+          </div>
 
-          <input type="radio" name="difficulty" id="hard" value="hard" onChange={(e) => setDifficulty(e.target.value)} />
-          <label htmlFor="hard">Hard</label> <br/>
+          <div>
+            <input type="radio" name="difficulty" id="hard" value="hard" onChange={(e) => setDifficulty(e.target.value)} />
+            <label htmlFor="hard">Hard</label>
+          </div>
 
           <button style={{ marginTop: "20px" }} onClick={handleStart}>
             Start
