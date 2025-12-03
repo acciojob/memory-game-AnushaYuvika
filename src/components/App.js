@@ -17,6 +17,7 @@ const App = () => {
       {!start ? (
         <div className="levels_container">
           <h1>Welcome!</h1>
+          <h4>Select a difficulty to start the game</h4>
           <div>
             <label>
               <input
