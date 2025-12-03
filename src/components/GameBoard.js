@@ -119,17 +119,17 @@ export default function GameBoard({ difficulty }) {
     <div className="game_container">
       <h2>Difficulty: {difficulty}</h2>
       <h4>Try to match all pairs!</h4>
-      <h3>YoTries: {yoTries}</h3>
+      <h4>YoTries: {yoTries}</h4>
       <div
-  className="cells_container"
-  style={{
-    display: "grid",
-    gridTemplateColumns: `repeat(${columnsMap[difficulty]}, 80px)`,
-    gap: "10px",
-    justifyContent: "center",
-    marginTop: "20px"
-  }}
->
+        className="cells_container"
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${columnsMap[difficulty]}, 80px)`,
+          gap: "10px",
+          justifyContent: "center",
+          marginTop: "20px"
+        }}
+      >
 
         {tiles.map((tile) => (
           <div
