@@ -16,12 +16,13 @@ const App = () => {
     <div className="app">
       {!start ? (
         <div className="levels_container">
-          <h1>Memory Matching Game</h1>
+          <h1>Welcome!</h1>
           <div>
             <label>
               <input
                 type="radio"
                 name="difficulty"
+                id="easy"
                 value="easy"
                 onChange={(e) => setDifficulty(e.target.value)}
               />{" "}
@@ -32,6 +33,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 value="normal"
+                id="normal"
                 onChange={(e) => setDifficulty(e.target.value)}
               />{" "}
               Normal
@@ -41,6 +43,7 @@ const App = () => {
                 type="radio"
                 name="difficulty"
                 value="hard"
+                id="hard"
                 onChange={(e) => setDifficulty(e.target.value)}
               />{" "}
               Hard
