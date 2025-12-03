@@ -1,96 +1,112 @@
+import React, { useState, useEffect } from "react";
+import "../App.css"; // make sure this file exists in src/
 
-// import React, { useState } from "react";
-// import './../styles/App.css';
-// import GameBoard from "./GameBoard";
+const LEVELS = {
+  easy: { pairs: 4, tiles: 8 },
+  normal: { pairs: 8, tiles: 16 },
+  hard: { pairs: 16, tiles: 32 },
+};
 
-// const App = () => {
-//   const [difficulty, setDifficulty] = useState("");
-//   const [start, setStart] = useState(false);
-
-//   const handleStart = () => {
-//     if (difficulty) setStart(true);
-//     else alert("Please select a difficulty level!");
-//   };
-
-//   return (
-//     <div className="app">
-//       {!start ? (
-//         <div className="levels_container">
-//           <h1>Welcome!</h1>
-//           <h4>Select a difficulty to start the game</h4>
-//           <div>
-//             <input type="radio" name="difficulty" id="easy" value="easy" onChange={(e) => setDifficulty(e.target.value)} />
-//             <label htmlFor="easy">Easy</label>
-//           </div>
-
-//           <div>
-//             <input type="radio" name="difficulty" id="normal" value="normal" onChange={(e) => setDifficulty(e.target.value)} />
-//             <label htmlFor="normal">Normal</label>
-//           </div>
-
-//           <div>
-//             <input type="radio" name="difficulty" id="hard" value="hard" onChange={(e) => setDifficulty(e.target.value)} />
-//             <label htmlFor="hard">Hard</label>
-//           </div>
-
-//           <button style={{ marginTop: "20px" }} onClick={handleStart}>
-//             Start
-//           </button>
-//         </div>
-//       ) : (
-//         <GameBoard difficulty={difficulty} />
-//       )}
-//     </div>
-//   )
-// }
-
-// export default App
-
-
-import React, { useState } from "react";
-import './../styles/App.css';
-import GameBoard from "./GameBoard";
-
-const App = () => {
-  const [difficulty, setDifficulty] = useState("");
-  const [start, setStart] = useState(false);
-
-  const handleStart = () => {
-    if (difficulty) setStart(true);
-    else alert("Please select a difficulty level!");
-  };
-
-  return (
-    <div className="app">
-      {!start ? (
-        <div className="levels_container">
-          <h1>Welcome!</h1>
-          <h4>Select a difficulty to start the game</h4>
-
-          <div style={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
-            <input type="radio" name="difficulty" id="easy" value="easy" onChange={(e) => setDifficulty(e.target.value)} />
-            <label htmlFor="easy" style={{ marginLeft: "5px" }}>Easy</label>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
-            <input type="radio" name="difficulty" id="normal" value="normal" onChange={(e) => setDifficulty(e.target.value)} />
-            <label htmlFor="normal" style={{ marginLeft: "5px" }}>Normal</label>
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", marginTop: "5px" }}>
-            <input type="radio" name="difficulty" id="hard" value="hard" onChange={(e) => setDifficulty(e.target.value)} />
-            <label htmlFor="hard" style={{ marginLeft: "5px" }}>Hard</label>
-          </div>
-
-          <button style={{ marginTop: "20px" }} onClick={handleStart}>
-            Start
-          </button>
-        </div>
-      ) : (
-        <GameBoard difficulty={difficulty} />
-      )}
-    </div>
-  )
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-export default App;
+export default function App() {
+  const [level, setLevel] = useState("easy");
+  const [tiles, setTiles] = useState([]);
+  const [picked, setPicked] = useState([]);
+  const [matched, setMatched] = useState([]);
+  const [attempts, setAttempts] = useState(0);
+
+  function startGame() {
+    const { pairs } = LEVELS[level];
+    const nums = [];
+    for (let n = 1; n <= pairs; n++) nums.push(n, n);
+    setTiles(shuffle(nums));
+    setPicked([]);
+    setMatched([]);
+    setAttempts(0);
+  }
+
+  useEffect(() => {
+    if (picked.length !== 2) return;
+    const [a, b] = picked;
+    if (tiles[a] === tiles[b]) {
+      setMatched((m) => [...m, a, b]);
+    } else {
+      setTimeout(() => setPicked([]), 600);
+      return;
+    }
+    setPicked([]);
+    setAttempts((x) => x + 1);
+  }, [picked, tiles]);
+
+  function flip(idx) {
+    if (picked.includes(idx) || matched.includes(idx)) return;
+    setPicked((p) => [...p, idx]);
+  }
+
+  const gridCols = level === "hard" ? 8 : 4;
+  const won = matched.length === tiles.length && tiles.length > 0;
+
+  return (
+    <div className="App">
+      <h1>Memory Matching Game</h1>
+
+      <section className="levels_container">
+        <label>
+          <input
+            type="radio"
+            name="level"
+            checked={level === "easy"}
+            onChange={() => setLevel("easy")}
+          />{" "}
+          Easy
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="level"
+            checked={level === "normal"}
+            onChange={() => setLevel("normal")}
+          />{" "}
+          Normal
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="level"
+            checked={level === "hard"}
+            onChange={() => setLevel("hard")}
+          />{" "}
+          Hard
+        </label>
+        <button onClick={startGame}>Start Game</button>
+      </section>
+
+      <section
+        className="cells_container"
+        style={{ gridTemplateColumns: `repeat(${gridCols},80px)` }}
+      >
+        {tiles.map((n, i) => (
+          <div
+            key={i}
+            className={`cell ${matched.includes(i) ? "matched" : ""}`}
+            onClick={() => flip(i)}
+          >
+            {picked.includes(i) || matched.includes(i) ? n : "?"}
+          </div>
+        ))}
+      </section>
+
+      <p>
+        Attempts: <span>{attempts}</span>
+      </p>
+      {won && <h2>You won in {attempts} attempts!</h2>}
+    </div>
+  );
+}
