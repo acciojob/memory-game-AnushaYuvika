@@ -56,7 +56,7 @@ export default function App() {
   return (
     <div className="App">
       <h1>Welcome!</h1>
-
+      <h4>Difficulty: {level.toUpperCase()}</h4>
       <section className="levels_container">
         <label>
           <input
