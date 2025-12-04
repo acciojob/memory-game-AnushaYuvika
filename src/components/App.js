@@ -108,9 +108,9 @@ export default function App() {
         ))}
       </section>
 
-      <p>
+      <h4>
         Attempts: <span>{attempts}</span>
-      </p>
+      </h4>
       {won && <h2>You won in {attempts} attempts!</h2>}
     </div>
   );
