@@ -90,7 +90,7 @@ export default function App() {
         <button data-testid="start-btn" onClick={startGame}>Start Game</button>
       </section>
 
-      <h4>Difficulty: {level.toUpperCase()}</h4>
+      <h4>Difficulty: <span>{level.toUpperCase()}</span></h4>
 
       <section
         className="cells_container"
