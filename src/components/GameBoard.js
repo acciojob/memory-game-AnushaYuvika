@@ -47,7 +47,7 @@ export default function GameBoard({ level, setLevel }) {
 
   return (
     <div>
-      <h2>Difficulty: {level.toUpperCase()}</h2>
+      <h4>Difficulty: {level.toUpperCase()}</h4>
       <p>Attempts: {attempts}</p>
       {allSolved ? (
         <div>
