@@ -87,8 +87,10 @@ export default function App() {
           />{" "}
           Hard
         </label>
-        <button onClick={startGame}>Start Game</button>
+        <button data-testid="start-btn" onClick={startGame}>Start Game</button>
       </section>
+
+      <h4>Difficulty: {level.toUpperCase()}</h4>
 
       <section
         className="cells_container"
@@ -96,6 +98,7 @@ export default function App() {
       >
         {tiles.map((n, i) => (
           <div
+          data-testid="cell"
             key={i}
             className={`cell ${matched.includes(i) ? "matched" : ""}`}
             onClick={() => flip(i)}
@@ -105,9 +108,9 @@ export default function App() {
         ))}
       </section>
 
-      <h4>
+      <p>
         Attempts: <span>{attempts}</span>
-      </h4>
+      </p>
       {won && <h2>You won in {attempts} attempts!</h2>}
     </div>
   );
