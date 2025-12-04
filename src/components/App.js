@@ -55,13 +55,14 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Memory Matching Game</h1>
+      <h1>Welcome!</h1>
 
       <section className="levels_container">
         <label>
           <input
             type="radio"
             name="level"
+            id="easy"
             checked={level === "easy"}
             onChange={() => setLevel("easy")}
           />{" "}
@@ -71,6 +72,7 @@ export default function App() {
           <input
             type="radio"
             name="level"
+            id="normal"
             checked={level === "normal"}
             onChange={() => setLevel("normal")}
           />{" "}
@@ -80,6 +82,7 @@ export default function App() {
           <input
             type="radio"
             name="level"
+            id="hard"
             checked={level === "hard"}
             onChange={() => setLevel("hard")}
           />{" "}
