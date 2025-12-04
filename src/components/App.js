@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../App.css"; // make sure this file exists in src/
+import './../styles/App.css';// make sure this file exists in src/
 
 const LEVELS = {
   easy: { pairs: 4, tiles: 8 },

@@ -3,7 +3,7 @@ import React from "react";
 export default function Levels({ setLevel }) {
   return (
     <div className="levels_container">
-      <h1>Welcome!</h1>
+      <h1>🎮 Memory Matching Game</h1>
       <p>Select Difficulty:</p>
       <div>
         <label>
