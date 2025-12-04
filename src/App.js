@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './../styles/App.css';// make sure this file exists in src/
+import "./App.css"; // make sure this file exists in src/
 
 const LEVELS = {
   easy: { pairs: 4, tiles: 8 },
@@ -55,13 +55,13 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Welcome!</h1>
+      <h1>Memory Matching Game</h1>
+
       <section className="levels_container">
         <label>
           <input
             type="radio"
             name="level"
-            id="easy"
             checked={level === "easy"}
             onChange={() => setLevel("easy")}
           />{" "}
@@ -71,7 +71,6 @@ export default function App() {
           <input
             type="radio"
             name="level"
-            id="normal"
             checked={level === "normal"}
             onChange={() => setLevel("normal")}
           />{" "}
@@ -81,16 +80,13 @@ export default function App() {
           <input
             type="radio"
             name="level"
-            id="hard"
             checked={level === "hard"}
             onChange={() => setLevel("hard")}
           />{" "}
           Hard
         </label>
-        <button data-testid="start-btn" onClick={startGame}>Start Game</button>
+        <button onClick={startGame}>Start Game</button>
       </section>
-
-      <h4>Difficulty: <span>{level.toUpperCase()}</span></h4>
 
       <section
         className="cells_container"
@@ -98,7 +94,6 @@ export default function App() {
       >
         {tiles.map((n, i) => (
           <div
-          data-testid="cell"
             key={i}
             className={`cell ${matched.includes(i) ? "matched" : ""}`}
             onClick={() => flip(i)}
@@ -108,11 +103,10 @@ export default function App() {
         ))}
       </section>
 
-      <h4>
+      <p>
         Attempts: <span>{attempts}</span>
-      </h4>
+      </p>
       {won && <h2>You won in {attempts} attempts!</h2>}
     </div>
   );
 }
-
